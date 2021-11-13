@@ -1,0 +1,14 @@
+plugins {
+    id 'java'
+}
+
+group 'me.dinozoid'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'com.github.oshi:oshi-core:5.8.3'
+}
