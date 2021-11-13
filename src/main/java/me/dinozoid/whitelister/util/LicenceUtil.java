@@ -1,4 +1,4 @@
-package me.dinozoid.whitelister;
+package me.dinozoid.whitelister.util;
 
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;

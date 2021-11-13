@@ -1,5 +1,7 @@
 package me.dinozoid.whitelister;
 
+import me.dinozoid.whitelister.util.LicenceUtil;
+
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
