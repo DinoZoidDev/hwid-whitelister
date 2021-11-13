@@ -2,6 +2,7 @@ package me.dinozoid.whitelister.util;
 
 import oshi.SystemInfo;
 import oshi.hardware.CentralProcessor;
+import oshi.hardware.ComputerSystem;
 import oshi.hardware.HardwareAbstractionLayer;
 import oshi.software.os.OperatingSystem;
 
@@ -20,12 +21,13 @@ public class LicenceUtil {
         OperatingSystem operatingSystem = systemInfo.getOperatingSystem();
         HardwareAbstractionLayer hardwareAbstractionLayer = systemInfo.getHardware();
         CentralProcessor centralProcessor = hardwareAbstractionLayer.getProcessor();
+        ComputerSystem computerSystem = hardwareAbstractionLayer.getComputerSystem();
 
         String osManufacturer = operatingSystem.getManufacturer();
         String family = operatingSystem.getFamily();
         String productName = "Strife";
-        String manufacturer = baseboardFetch("Manufacturer");
-        String product = baseboardFetch("Product");
+        String manufacturer = computerSystem.getBaseboard().getManufacturer();
+        String product = computerSystem.getModel();
         String processorIdentifier = centralProcessor.getProcessorIdentifier().getIdentifier();
         int processors = centralProcessor.getPhysicalProcessorCount();
 
@@ -57,25 +59,6 @@ public class LicenceUtil {
             e.printStackTrace();
         }
         return hashedLicence;
-    }
-
-    public static String baseboardFetch(String param) {
-        StringBuilder product = new StringBuilder();
-        String[] command = {"wmic", "baseboard", "get", param};
-        try {
-            Process process = Runtime.getRuntime().exec(command);
-            InputStreamReader inputStreamReader = new InputStreamReader(process.getInputStream());
-            BufferedReader reader = new BufferedReader(inputStreamReader);
-            String line;
-            while ((line = reader.readLine()) != null) {
-                product.append(line);
-            }
-            process.waitFor();
-            reader.close();
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-        return product.toString().replaceAll(param, "").trim();
     }
 
 }
